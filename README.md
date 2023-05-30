@@ -218,20 +218,21 @@ IMPORTANT: Do not ever delete the Primary ip configuration from the appliance in
 
 **Solution considerations**
 
-* Routing will be asymmetric​
-* If you have a firewall between Azure and On-premises: ​
-* Disable sequence number randomization ​
-* Enable TCP state bypass​
-* Require UDP port 4789 open both directions​
+* Routing will be asymmetric
+* If you have a firewall between Azure and On-premises
+* Disable sequence number randomization
+* Enable TCP state bypass
+* Require UDP port 4789 open both directions
 
-**MTU reduced due to VXLAN overhead​**
+**MTU reduced due to VXLAN overhead
 
 * Broadcasts aren’t going to broadcast (can’t bring your own DHCP, PXE, etc)
-* ​The first three addresses are reserved in Azure subnets​
+* The first three addresses are reserved in Azure subnets
 * Azure Virtual Network Router requires the first address in the subnet
-* ​A slight increase in Latency and throughput may be reduced to ~1Gbps​
-* One appliance pair required per subnet must always be running​
+* A slight increase in Latency and throughput may be reduced to ~1Gbps
+* One appliance pair required per subnet must always be running
 * Additional steps may be required if using some form of SDN on-prem
+
 Reference:
 https://learn.microsoft.com/en-us/azure/virtual-network/subnet-extension
 https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/azure/azure-extended-network
