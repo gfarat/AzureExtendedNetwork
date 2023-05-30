@@ -233,6 +233,7 @@ IMPORTANT: Do not ever delete the Primary ip configuration from the appliance in
 * One appliance pair required per subnet must always be running
 
 Reference:
+
 https://learn.microsoft.com/en-us/azure/virtual-network/subnet-extension
 
 https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/azure/azure-extended-network
