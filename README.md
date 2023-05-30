@@ -231,10 +231,12 @@ IMPORTANT: Do not ever delete the Primary ip configuration from the appliance in
 * Azure Virtual Network Router requires the first address in the subnet
 * A slight increase in Latency and throughput may be reduced to ~1Gbps
 * One appliance pair required per subnet must always be running
-* Additional steps may be required if using some form of SDN on-prem
 
 Reference:
 https://learn.microsoft.com/en-us/azure/virtual-network/subnet-extension
+
 https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/azure/azure-extended-network
+
 https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization
+
 https://www.hciharrison.com/azure-stack-hci/azure-extended-networks/
