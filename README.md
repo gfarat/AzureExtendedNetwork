@@ -72,11 +72,16 @@ Enable Hyper-V Role (Restart required):
 Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 ```
 
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/ab4dfe44-f206-4b64-b858-820dfaf8a2b7)
+
 After restart create the two virtual switches on the VMs and connect each one to its respective network card:
+>**Note** The NetAdapterName can change depending on the VM, it is always important to check before running this second script. In my example I have already renamed the network cards as Routed and VXLAN.
 ```powershell
 New-VMSwitch -Name "External" -AllowManagementOS $true -NetAdapterName "Ethernet"
 New-VMSwitch -Name "Extended" -AllowManagementOS $true -NetAdapterName "Ethernet 2"
 ```
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/ac1fd092-72d4-4d13-9e66-96405de212d6)
+
 
 Disable RSC (Restart required):
 ```powershell
@@ -84,6 +89,8 @@ disable-netadapterrsc -name *
 get-vmswitch | set-vmswitch -EnableSoftwareRsc $false
 Shutdown -r -f -t 00
 ```
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/39fe0459-eb2f-4068-8a66-4b466218b5d2)
+
 
 >**Note** The reason is that RSC for TCP flows occurs before VXLAN encapsulation. Once the packet is encapsulated the now UDP packet is too large to send and since it is no longer TCP it can’t be fragmented again. The result is that the packet gets dropped resulting in retransmits. This can occur many times, reducing throughput significantly.
 
