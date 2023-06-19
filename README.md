@@ -131,6 +131,11 @@ After a few seconds you should see a message indicating a successful installatio
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/3b5a59eb-5f42-4f62-bc4b-6bf74fa86942)
 
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/28fb9f67-a737-4f86-b248-21bfdedd2579)
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/edd079dd-f2fa-47b5-897d-63fdaed92145)
+
+
 
 Reference:
 
