@@ -121,15 +121,23 @@ After a few seconds you should see a message indicating a successful installatio
 
 4. Connect Windows Admin Center to Azure, if you haven’t already done so. If you skip this step now, we'll ask you to do so later in the process.
 
+5. Register your Azure Account
+
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/330d0035-9be5-40e8-8d4c-8ebad5df57e4)
 
+6. Copy the code and enter it on the login screen followed by your Azure login
+   
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/2f1497fb-9aa6-4169-818e-09688598d08b)
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/22c64287-1832-4c75-a94f-d0e9bd64ff94)
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/30e649f2-4d03-495b-bbef-011449a4914c)
 
+7. Select the tenant that will register the Azure Application
+   
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/3b5a59eb-5f42-4f62-bc4b-6bf74fa86942)
+
+>**Note** For App Registration the minimum permission required in Azure AD is Application Administrator.
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/28fb9f67-a737-4f86-b248-21bfdedd2579)
 
