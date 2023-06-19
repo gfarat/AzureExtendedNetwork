@@ -139,7 +139,11 @@ After a few seconds you should see a message indicating a successful installatio
 
 >**Note** For App Registration the minimum permission required in Azure AD is Application Administrator.
 
+8. Select in the upper left corner "All Connections", + Add and add the Onpremises server under "Servers"
+   
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/28fb9f67-a737-4f86-b248-21bfdedd2579)
+
+9. Enter the IP address of the appliance server installed in the on-premises environment, and if it is outside the domain, enter the Appliance administration password for the Windows Admin Center connection.
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/edd079dd-f2fa-47b5-897d-63fdaed92145)
 
