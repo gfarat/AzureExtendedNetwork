@@ -110,10 +110,26 @@ https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/ove
 
 2. In Windows Admin Center, select Settings (from the upper-right corner of the page) > Extensions. Then select Extensions:
 
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/be6bcac3-a0e3-48e8-bce6-ed05a1e5a43c)
+
+
 3. On the Available extensions tab, select Extended network, and then select Install. After a few seconds you should see a message indicating a successful installation.
 
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/10c8da63-c8ed-4360-a43b-b2caa39436df)
 
+After a few seconds you should see a message indicating a successful installation.
 
+4. Connect Windows Admin Center to Azure, if you haven’t already done so. If you skip this step now, we'll ask you to do so later in the process.
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/330d0035-9be5-40e8-8d4c-8ebad5df57e4)
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/2f1497fb-9aa6-4169-818e-09688598d08b)
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/22c64287-1832-4c75-a94f-d0e9bd64ff94)
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/30e649f2-4d03-495b-bbef-011449a4914c)
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/3b5a59eb-5f42-4f62-bc4b-6bf74fa86942)
 
 
 Reference:
