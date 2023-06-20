@@ -193,6 +193,11 @@ If it looks correct, you can click Next.
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/90a6af3f-d28d-4de3-8b33-21aa8f13f896)
 
+9. After finishing the installation of the appliances apply the fix for the issues 2 and 3 on both sides.
+<!-- TOC -->
+[Know Issues](https://github.com/gfarat/AzureExtendedNetwork/tree/main#known-issues)
+<!-- /TOC -->
+
 # Manage
 
 Each IP address that you want to be reachable across the extended network will need to be configured. You can configure up to 250 addresses to extend.
@@ -214,8 +219,6 @@ To extend an address
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/2b6c753f-c4f6-4517-8840-b943f8954bdb)
 
 5. Click Submit when complete. You will see the status change to Updating, then Progressing, and finally back to OK when the configuration is complete.
-
-6. 
 
 Your addresses are now extended. Use the Add IPv4 Addresses button to add additional addresses at any time. If an IP address is no longer in use at either end of the extended network, select the checkbox next to it and select Remove IPv4 Addresses.
 
