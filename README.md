@@ -215,6 +215,8 @@ To extend an address
 
 5. Click Submit when complete. You will see the status change to Updating, then Progressing, and finally back to OK when the configuration is complete.
 
+6. 
+
 Your addresses are now extended. Use the Add IPv4 Addresses button to add additional addresses at any time. If an IP address is no longer in use at either end of the extended network, select the checkbox next to it and select Remove IPv4 Addresses.
 
 If you no longer want to use extended network for Azure, click the Remove Azure Extended-Network button. This will uninstall the agent from the two virtual appliances and remove the extended IP addresses. The network will stop being extended. You will have to re-run the setup after removing it, if you want to start using the extended network again.
@@ -230,6 +232,42 @@ We have three known issues related to the network extension process that have wo
 2. If you map more than approximately 10 ip addresses then Windows Admin Center will fail to apply the configuration and enter a persistent error state.
 
 3. Traffic from outside of the extended subnet that tries to reach a VM within the subnet and across the extension will get dropped.  
+
+## Workaround from issue 1
+
+Create Firewall a new firewall rule to block ICMP ipv4. This setting can be overridden by adding an ACL on the edge router responsible for VPN tunneling or Express Route.
+
+```powershell
+New-NetFirewallRule -DisplayName "Block ICMP" -Direction Inbound -Protocol ICMPv4 -Action Block
+```
+## Workaround from issue 2
+
+## Workaround from issue 3
+
+You will need to run the following steps on both of the extended network appliances:
+
+1.	Open a powershell window with Administrator privilege
+
+2.	Run the command:
+
+```powershell
+stop-service extnwagent
+```
+>**NOTE** If you get an error when stopping the service, repeat the command again and it should succeed the second time.
+
+3.	Replace “c:\program files\Azure Extended Network Agent\ExtendedNwAgent.exe” with the updated version located here: (https://github.com/gfarat/AzureExtendedNetwork/blob/main/ExtendedNwAgent.exe)
+
+5.	Verify the file hash with the command:
+get-filehash “c:\program files\Azure Extended Network Agent\ExtendedNwAgent.exe”
+File has should be: 63956514D1267EC629CB206077383126E3661BB5D2F8561538DF9BE9261356B1
+f.	Run:
+Start-service extnwagent
+g.	Repeat these steps for the 2nd extended network appliance.
+2.	Verify that two VMs on the extended subnet are still able to communicate with each other across the appliances
+3.	Verify that a machine outside of the extended subnet is able to communicate with each of the machines regardless of which side of the subnet they are connected to. 
+a.	Note: even after applying the fix there are many reasons why this communication test can fail if routing is not configured correctly on the network.  If you are unable to get this to work, let me know and I can provide additional troubleshooting steps.
+
+Once this is verified to be working I will work on getting it incorporated into Windows Admin Center so the fix is installed by default (this will take a few weeks to be completed).
 
 
 Reference:
