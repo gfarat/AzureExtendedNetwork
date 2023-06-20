@@ -187,10 +187,35 @@ If it looks correct, you can click Next.
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/4d1f719d-73d8-426c-9132-faef80219006)
 
-8. When deployment is complete, you will see the following panel for managing the extended IP addresses, and the status should say OK:
+8. When deployment is complete, you will see the following panel for managing the extended IP addresses, and the status should say OK
 
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/90a6af3f-d28d-4de3-8b33-21aa8f13f896)
 
+# Manage
 
+Each IP address that you want to be reachable across the extended network will need to be configured. You can configure up to 250 addresses to extend.
+
+To extend an address
+
+1. Click on "Add IPv4 Addresses"
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/041abc38-dada-4316-a67a-bac512d908ac)
+
+2. You will see the Add new IPv4 Addresses flyout on the right:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/5b0ba193-2fff-4b14-b8fe-0e007009f3ff)
+
+3. Use the Add button to manually add an address. Addresses that you add that are on-premises will be reachable by the Azure Addresses that you add to the Azure Address list, and vice versa.
+   
+4. Extended network for Azure scans the network to discover IP addresses, and populates the Suggestion lists based on this scan. To extend these addresses, you must use the dropdown list and select the checkbox next to the discovered address. Not all addresses will be discovered. Optionally, use the Add button to manually add addresses that are not discovered automatically.
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/2b6c753f-c4f6-4517-8840-b943f8954bdb)
+
+5. Click Submit when complete. You will see the status change to Updating, then Progressing, and finally back to OK when the configuration is complete.
+
+Your addresses are now extended. Use the Add IPv4 Addresses button to add additional addresses at any time. If an IP address is no longer in use at either end of the extended network, select the checkbox next to it and select Remove IPv4 Addresses.
+
+If you no longer want to use extended network for Azure, click the Remove Azure Extended-Network button. This will uninstall the agent from the two virtual appliances and remove the extended IP addresses. The network will stop being extended. You will have to re-run the setup after removing it, if you want to start using the extended network again.
 
 Reference:
 
