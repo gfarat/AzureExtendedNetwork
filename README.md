@@ -145,6 +145,47 @@ After a few seconds you should see a message indicating a successful installatio
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/edd079dd-f2fa-47b5-897d-63fdaed92145)
 
+10. After adding the server connect to it via the Windows Admin Center
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/b5e6e50d-d4ec-4512-8606-d23353fd24ea)
+    
+12. Click on Extended network to begin. The first time you will be presented with an overview and a setup button
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/070fe014-2845-46d4-b7e0-6a4e0ce29051)
+
+# Deploy Extended Network for Azure
+ 
+1. Click Set up to begin the configuration.
+
+2. Click Next to proceed past the Overview.
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/0a75fdbe-94cc-4265-bbc4-ad6d26a6c92c)
+
+3. Select the Subnet CIDR of the on-premises network that you want to extend. The list of subnets is read in from the virtual appliance. If you have not connected the virtual appliance to the correct set of subnets, you will not see the desired subnet CIDR in this list.
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/4bf6b433-b386-4ba7-b919-d8f9be079dd1)
+
+4. Select the subscription, resource Group and virtual network that you are extending into:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/465cbba7-f577-40ad-b1ca-79f02a8c5c80)
+
+The region (Azure location) and subnet are selected automatically. Select Next: Extended-Network Gateway Setup to proceed.
+
+5. You will now configure the virtual appliances. The on-premises gateway should have its information populated automatically:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/873ff81e-4632-4125-8940-eeaf3522e44f)
+
+If it looks correct, you can click Next.
+
+6. For the Azure virtual appliance you will need to select the resource group, VM to use and Azure Gateway subnet CIDR:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/ac438ca7-773f-43b6-b2e9-eb9efa9a159e)
+
+>**Note** The VM list for the Azure virtual appliance only includes Azure VMs that contain Windows Server 2022 Azure Edition. If you do not see your VM in the list, make sure it is the Azure Edition and re-create if it is not.
+
+7. Review the summary information then click Deploy to begin the deployment process. Deployment will take approximately 5-10 minutes. When deployment is complete, you will see the following panel for managing the extended IP addresses, and the status should say OK:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/227ecca5-82c1-4ebf-89b2-7677762c8e85)
 
 
 Reference:
