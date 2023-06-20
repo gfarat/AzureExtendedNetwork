@@ -65,17 +65,19 @@ The network is extended using a bidirectional VXLAN tunnel between two Windows S
 
 ## Appliances
 
-In the two VMs (Azure and On-Premises) responsible for the virtual appliance function, we need to install the Windows Hyper-V feature and create two external virtual switches in the VM and connect one to each of the network interfaces. 
+1. In the two VMs (Azure and On-Premises) responsible for the virtual appliance function, we need to install the Windows Hyper-V feature and create two external virtual switches in the VM and connect one to each of the network interfaces. 
 
-Enable Hyper-V Role (Restart required):
+2. Enable Hyper-V Role (Restart required):
 ```powershell
 Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 ```
 
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/ab4dfe44-f206-4b64-b858-820dfaf8a2b7)
 
-After restart create the two virtual switches on the VMs and connect each one to its respective network card:
+3. After restart create the two virtual switches on the VMs and connect each one to its respective network card:
+
 >**Note** The NetAdapterName can change depending on the VM, it is always important to check before running this second script. In my example I have already renamed the network cards as Routed and VXLAN.
+
 ```powershell
 New-VMSwitch -Name "External" -AllowManagementOS $true -NetAdapterName "Ethernet"
 New-VMSwitch -Name "Extended" -AllowManagementOS $true -NetAdapterName "Ethernet 2"
@@ -83,7 +85,7 @@ New-VMSwitch -Name "Extended" -AllowManagementOS $true -NetAdapterName "Ethernet
 ![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/ac1fd092-72d4-4d13-9e66-96405de212d6)
 
 
-Disable RSC (Restart required):
+4. Disable RSC (Restart required):
 ```powershell
 disable-netadapterrsc -name *
 get-vmswitch | set-vmswitch -EnableSoftwareRsc $false
@@ -94,7 +96,7 @@ Shutdown -r -f -t 00
 
 >**Note** The reason is that RSC for TCP flows occurs before VXLAN encapsulation. Once the packet is encapsulated the now UDP packet is too large to send and since it is no longer TCP it can’t be fragmented again. The result is that the packet gets dropped resulting in retransmits. This can occur many times, reducing throughput significantly.
 
-Create Firewall a new firewall rule to block ICMP ipv4. This setting can be overridden by adding an ACL on the edge router responsible for VPN tunneling or Express Route.
+5. Create Firewall a new firewall rule to block ICMP ipv4. This setting can be overridden by adding an ACL on the edge router responsible for VPN tunneling or Express Route.
 
 ```powershell
 New-NetFirewallRule -DisplayName "Block ICMP" -Direction Inbound -Protocol ICMPv4 -Action Block
@@ -216,6 +218,19 @@ To extend an address
 Your addresses are now extended. Use the Add IPv4 Addresses button to add additional addresses at any time. If an IP address is no longer in use at either end of the extended network, select the checkbox next to it and select Remove IPv4 Addresses.
 
 If you no longer want to use extended network for Azure, click the Remove Azure Extended-Network button. This will uninstall the agent from the two virtual appliances and remove the extended IP addresses. The network will stop being extended. You will have to re-run the setup after removing it, if you want to start using the extended network again.
+
+# Known issues
+
+We have three known issues related to the network extension process that have workarounds or fixes that can be applied, all of which will be fixed in the next release.
+
+1. ICMP messages come back and cause the retry count to be exceeded too quickly.  If you configure the Windows firewall to block ICMP on the appliance that is initiating the connection it will prevent this from occurring.
+
+>**NOTE** This workaround was mentioned in Installation Process, Appliances, item 5.
+
+2. If you map more than approximately 10 ip addresses then Windows Admin Center will fail to apply the configuration and enter a persistent error state.
+
+3. Traffic from outside of the extended subnet that tries to reach a VM within the subnet and across the extension will get dropped.  
+
 
 Reference:
 
