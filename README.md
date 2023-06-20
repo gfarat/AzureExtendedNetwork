@@ -245,6 +245,85 @@ New-NetFirewallRule -DisplayName "Block ICMP" -Direction Inbound -Protocol ICMPv
 ```
 ## Workaround from issue 2
 
+1. Copy the [ExtendedNetwork.psm1](https://github.com/gfarat/AzureExtendedNetwork/blob/main/ExtendedNetwork.psm1) file module to each appliance
+
+2. Open Powershell on each, change to the directory where you placed the module and run the following command:
+
+```powershell
+Import-module .\ExtendedNetwork.psm1
+```
+
+It contains three cmdlets:
+
+Get-extendednetworkipaddresses
+Add-extendednetworkipaddress
+Remove-extendednetworkipaddress
+
+3. First verify that the cmdlets work by running the get cmdlet on each appliance (no parameters required.)  
+
+```powershell
+Get-ExtendedNetworkIPAddresses
+```
+You should see this output on each:
+
+Azure appliance:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/a7f8b256-b224-420b-bfc9-2464b4527305)
+
+OnPrem appliance:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/9965ebdd-1a50-43ef-b3d9-86b6cef6cb56)
+
+
+>**NOTE** Each should always contain the exact set of IP addresses, but with local and remote swapped.
+
+4. To add an ip address you will need to run the add cmdlet on each side, but with the Location swapped each time. You will specify local if the IP Address is located on the same half of the network where the appliance is.
+
+For example if the VM is in Azure you will run the following on the Azure Appliance:
+
+```powershell
+Add-ExtendedNetworkIPAddress -ipaddress 192.168.2.11 -location local
+```
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/16e5064c-c1a7-4993-b14d-60e3f07248cb)
+
+
+You should verify that the IP address appears in the list.
+
+Then, you will run the same command in the on-prem appliance, but this time specify remote (since the machine whose ip address you are extending is remote in Azure):
+
+```powershell
+Add-ExtendedNetworkIPAddress -ipaddress 192.168.2.11 -location Remote
+```
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/cf052259-d3de-4ecd-9d22-a5c0fe6bc257)
+
+If the VM is located in Azure as in the above example then you are done, the traffic should start working after several seconds.
+
+If the VM is located on-prem (this is important) then you need to add an IP configuration for the IP address to the appliance in Azure.  You can do this through the portal in this way:
+
+5. Navigate to the Appliance network interface that is connected to the extended subnet, then click on IP Configurations on the left 
+
+6. Click Add to add the new IP address. 
+
+7. Make sure the name is in the format “ipconfig-<ipaddress>” like you see below.  Allocation must be “Static” and public ip address is “Disassociate”.
+   
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/50c4cad3-5ee8-49af-aeea-4497dae6385d)
+
+9. After adding the ip configuration then traffic should be able to reach the on-prem address.
+
+>**IMPORTANT NOTE** At all times the ip address lists must stay in sync, with the only difference being that local and remote are swapped.
+
+9. If you make a mistake you can remove the address with remove cmdlet
+
+```powershell
+Remove-ExtendedNetworkIPAddress -ipaddress 192.168.2.11
+```
+
+Make sure you do this on both appliances so they are in sync, and keep the ipconfiguration in Azure matching the addresses that are on-prem local.
+
+>**IMPORTANT NOTE** Do not ever delete the Primary ip configuration from the appliance in Azure.
+
 ## Workaround from issue 3
 
 You will need to run the following steps on both of the extended network appliances:
