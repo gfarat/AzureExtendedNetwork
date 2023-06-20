@@ -258,19 +258,27 @@ stop-service extnwagent
 ```
 >**NOTE** If you get an error when stopping the service, repeat the command again and it should succeed the second time.
 
-3.	Replace “c:\program files\Azure Extended Network Agent\ExtendedNwAgent.exe” with the updated version located here: (https://github.com/gfarat/AzureExtendedNetwork/blob/main/ExtendedNwAgent.exe)
+3.	Replace “c:\program files\Azure Extended Network Agent\ExtendedNwAgent.exe” with the updated version located here: [ExtendedNwAgent.exe](https://github.com/gfarat/AzureExtendedNetwork/blob/main/ExtendedNwAgent.exe)
 
 5.	Verify the file hash with the command:
-get-filehash “c:\program files\Azure Extended Network Agent\ExtendedNwAgent.exe”
-File has should be: 63956514D1267EC629CB206077383126E3661BB5D2F8561538DF9BE9261356B1
-f.	Run:
-Start-service extnwagent
-g.	Repeat these steps for the 2nd extended network appliance.
-2.	Verify that two VMs on the extended subnet are still able to communicate with each other across the appliances
-3.	Verify that a machine outside of the extended subnet is able to communicate with each of the machines regardless of which side of the subnet they are connected to. 
-a.	Note: even after applying the fix there are many reasons why this communication test can fail if routing is not configured correctly on the network.  If you are unable to get this to work, let me know and I can provide additional troubleshooting steps.
 
-Once this is verified to be working I will work on getting it incorporated into Windows Admin Center so the fix is installed by default (this will take a few weeks to be completed).
+```powershell
+get-filehash “c:\program files\Azure Extended Network Agent\ExtendedNwAgent.exe”
+```
+File has should be: 63956514D1267EC629CB206077383126E3661BB5D2F8561538DF9BE9261356B1
+
+3.	Run the command:
+
+```powershell
+start-service extnwagent
+```
+4.	Repeat these steps for the second extended network appliance.
+
+5.	Verify that two VMs on the extended subnet are still able to communicate with each other across the appliances
+
+6.	Verify that a machine outside of the extended subnet is able to communicate with each of the machines regardless of which side of the subnet they are connected to. 
+
+>**NOTE** Even after applying the fix there are many reasons why this communication test can fail if routing is not configured correctly on the network
 
 
 Reference:
