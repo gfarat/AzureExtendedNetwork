@@ -94,12 +94,10 @@ Shutdown -r -f -t 00
 
 >**Note** The reason is that RSC for TCP flows occurs before VXLAN encapsulation. Once the packet is encapsulated the now UDP packet is too large to send and since it is no longer TCP it can’t be fragmented again. The result is that the packet gets dropped resulting in retransmits. This can occur many times, reducing throughput significantly.
 
-Create Firewall a new firewall rule to block ICMP ipv4 and disable ICMP ipv6. This setting can be overridden by adding an ACL on the edge router responsible for VPN tunneling or Express Route.
+Create Firewall a new firewall rule to block ICMP ipv4. This setting can be overridden by adding an ACL on the edge router responsible for VPN tunneling or Express Route.
 
 ```powershell
 New-NetFirewallRule -DisplayName "Block ICMP" -Direction Inbound -Protocol ICMPv4 -Action Block
-Set-NetFirewallProfile -Profile Domain,Public,Private -Icmpv6InboundEchoRequest Blocked
-Set-NetFirewallProfile -Profile Domain,Public,Private -Icmpv6OutboundDestinationUnreachable Blocked
 ```
 >**Note** There is a known issue where ICMP messages come back and cause the retry count to be exceeded too quickly. If you configure the Windows firewall to block ICMP on the appliance that is initiating the connection it will prevent this from occurring. The product team plan to fix this in the next update to the extension.
 
