@@ -183,9 +183,13 @@ If it looks correct, you can click Next.
 
 >**Note** The VM list for the Azure virtual appliance only includes Azure VMs that contain Windows Server 2022 Azure Edition. If you do not see your VM in the list, make sure it is the Azure Edition and re-create if it is not.
 
-7. Review the summary information then click Deploy to begin the deployment process. Deployment will take approximately 5-10 minutes. When deployment is complete, you will see the following panel for managing the extended IP addresses, and the status should say OK:
+7. Review the summary information then click Deploy to begin the deployment process. Deployment will take approximately 5-10 minutes. 
 
-![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/227ecca5-82c1-4ebf-89b2-7677762c8e85)
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/4d1f719d-73d8-426c-9132-faef80219006)
+
+8. When deployment is complete, you will see the following panel for managing the extended IP addresses, and the status should say OK:
+
+
 
 
 Reference:
