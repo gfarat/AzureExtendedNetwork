@@ -359,6 +359,69 @@ start-service extnwagent
 
 >**NOTE** Even after applying the fix there are many reasons why this communication test can fail if routing is not configured correctly on the network
 
+# Extended Network Data Path Diagnostic Guide
+
+## Step 1: Validate the configuration
+
+## Step 1a:
+
+Download ExtendedNetwork.psm1 powershell module from here [ExtendedNetwork.psm1](https://github.com/gfarat/AzureExtendedNetwork/blob/main/ExtendedNetwork.psm1)
+
+Save onto each of the extended network appliances.
+
+Assuming the module is saved into c:\, on each appliance run the following command:
+
+```powershell
+import-module c:\extendednetwork.psm1
+```
+Now on each run the get command: 
+
+```powershell
+Get-ExtendedNetworkIPAddresses
+```
+You should see the same set of ip addresses output on each, with the location swapped on each:
+
+On on-prem appliance:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/82c9a7a9-3c9b-4250-a13c-d2a7d69bb8f2)
+
+On Azure appliance:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/d9a106e2-7ce4-4550-82af-614663ca6f96)
+
+If you do not see the matching configuration in each site, use the Add-ExtendedNetworkIPAddress or Remove-ExtendedNetworkIPAddress cmdlets to correct it.
+
+## Step 1b:
+
+The addresses that are remote to the Azure appliance also require an Ipconfig on the network interface that is connected to the extended subnet.  
+
+In the above example the 10.1.2.10 and 10.1.2.40 IP Addresses require ip configurations.
+
+You can use the azure CLI to do this.  Download and install from https://aka.ms/azcli.
+
+1. Login to Azure
+
+```powershell
+az login
+```
+
+2. Select the appropriate subscription if not selected by default:
+
+```powershell
+az account set -name <mysubscription>
+```
+3. List the Extended Network Gateway nics using the resource group and VM name
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/fbccb893-44d5-4460-b6f3-3b1567761588)
+
+4. Find the NIC that is connected to the extended subnet and query the IP configs using the name in the ID use “-o table“ to format neatly:
+
+![image](https://github.com/gfarat/AzureExtendedNetwork/assets/55545933/60208e99-0bd7-4507-9c84-8841fc28f3b0)
+
+5. In the above output, verify that all of the IP addresses listed as “Remote” in the azure appliance output from Get-ExtendedNetworkIPAddresses are listed. You should only see one additional ip address which is the permanent ip-config assigned to the nic in azure. If you find IP-configs are out of sync, then you must add/remove them manually using the [az network nic ip-config](https://learn.microsoft.com/en-us/cli/azure/network/nic/ip-config?view=azure-cli-latest#az-network-nic-ip-config-create) commands. Refer to the az cli documentation for details.
+
+That is all of the required configuration if you see that the above are correct then proceed to the diagnostics.
+
 
 Reference:
 
